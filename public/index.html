@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Evita que o iPhone transforme números (preços, código Pix) em links de telefone -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="The Flavor Grill: hambúrgueres artesanais em delivery. Monte seu pedido no site e pague online pelo Pix ou cartão.">
+    <title>The Flavor Grill — Delivery de Hambúrguer</title>
+    <link rel="canonical" href="https://flavorgrill.com.br/">
+
+    <!-- Prévia do link ao compartilhar no WhatsApp, Instagram e Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="The Flavor Grill">
+    <meta property="og:title" content="The Flavor Grill — Delivery de Hambúrguer">
+    <meta property="og:description" content="Smash e burguers artesanais no brioche amanteigado. Monte seu pedido no site e pague online pelo Pix ou cartão.">
+    <meta property="og:url" content="https://flavorgrill.com.br/">
+    <meta property="og:image" content="https://flavorgrill.com.br/assets/images/compartilhar.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="theme-color" content="#efd1b7">
+    <link rel="icon" href="assets/images/logo.webp" type="image/webp">
+    <link rel="icon" href="assets/images/icone-192.png" type="image/png" sizes="192x192">
+    <!-- Ícone ao adicionar o site à tela inicial (iPhone e Android) -->
+    <link rel="apple-touch-icon" href="assets/images/icone-180.png">
+    <meta name="apple-mobile-web-app-title" content="Flavor Grill">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Atalho para quem navega pelo teclado: aparece ao receber o foco (primeiro Tab) -->
+    <a class="pular-conteudo" href="#cardapio">Pular para o cardápio</a>
+
+    <header class="topo">
+        <div class="container">
+            <a class="marca" href="#inicio">
+                <img src="assets/images/logo.webp" alt="" width="46" height="42">
+                <span>THE FLAVOR GRILL</span>
+            </a>
+
+            <nav class="menu-principal" id="menu-principal" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="#cardapio">Cardápio</a></li>
+                    <li><a href="#combo">Combos</a></li>
+                    <li><a href="#informacoes">Delivery</a></li>
+                </ul>
+            </nav>
+
+            <div class="acoes-topo">
+                <button type="button" class="botao-sacola" id="abrir-sacola" aria-label="Abrir sacola">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M6 7h12l-1 13H7L6 7Z"/>
+                        <path d="M9 7a3 3 0 0 1 6 0"/>
+                    </svg>
+                    <span class="texto-sacola">Sacola</span>
+                    <span class="contador" id="contador-sacola">0</span>
+                </button>
+                <button type="button" class="botao-menu" id="botao-menu" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu">
+                    <span class="linhas" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Loja fechada ou servidor fora do ar (preenchida pelo js/checkout.js) -->
+    <div class="faixa-loja" id="faixa-loja" role="status" hidden>
+        <p id="faixa-loja-texto"></p>
+        <a class="botao botao-whatsapp" id="faixa-loja-whatsapp" target="_blank" rel="noopener noreferrer" hidden>Pedir pelo WhatsApp</a>
+    </div>
+
+    <main>
+        <section class="abertura" id="inicio" aria-labelledby="titulo-principal">
+            <div class="pontos pontos-topo" aria-hidden="true"></div>
+            <div class="pontos pontos-base" aria-hidden="true"></div>
+            <div class="container">
+                <div>
+                    <h1 id="titulo-principal">THE<br>FLAVOR <em>GRILL</em></h1>
+                    <p class="chamada">Não é só um hambúrguer: é a melhor refeição do seu dia. Cada lanche é montado na hora, com blend suculento na brasa, queijo que derrete de verdade, bacon crocante e brioche amanteigado. Escolha o seu favorito e receba quentinho em casa.</p>
+                    <div class="grupo-botoes">
+                        <a class="botao botao-primario" href="#cardapio">Ver cardápio e pedir</a>
+                        <a class="botao botao-secundario" href="#combo">Combo por +R$ 20</a>
+                    </div>
+                </div>
+                <img class="mascote" src="assets/images/logo.webp" width="420" height="380"
+                     alt="Mascote da The Flavor Grill: uma vaca sorridente segurando um hambúrguer, dentro de um selo com a frase Sinta a diferença.">
+            </div>
+        </section>
+
+        <!--
+            Ícones em SVG: são desenhos estáticos e simples, que precisam ficar nítidos
+            em qualquer tamanho de tela. Por isso SVG (vetor) em vez de Canvas (pixels).
+            Cada ícone tem <title> e role="img" para ser anunciado por leitores de tela.
+        -->
+        <section class="passos" aria-label="Como fazer seu pedido">
+            <div class="container">
+                <ol>
+                    <li>
+                        <span class="numero-passo" aria-hidden="true">1</span>
+                        <svg class="icone-passo" viewBox="0 0 64 64" role="img" aria-labelledby="icone-passo-1">
+                            <title id="icone-passo-1">Passo 1: cardápio</title>
+                            <rect x="12" y="6" width="40" height="52" rx="6" fill="#ec6640"/>
+                            <rect x="19" y="16" width="26" height="5" rx="2.5" fill="#efd1b7"/>
+                            <rect x="19" y="27" width="20" height="4" rx="2" fill="#131d2f"/>
+                            <rect x="19" y="36" width="24" height="4" rx="2" fill="#131d2f"/>
+                            <rect x="19" y="45" width="16" height="4" rx="2" fill="#131d2f"/>
+                        </svg>
+                        <span>Escolha seus burguers e porções aqui no cardápio</span>
+                    </li>
+                    <li>
+                        <span class="numero-passo" aria-hidden="true">2</span>
+                        <svg class="icone-passo" viewBox="0 0 64 64" role="img" aria-labelledby="icone-passo-2">
+                            <title id="icone-passo-2">Passo 2: sacola de compras</title>
+                            <path d="M14 20h36l-3 36H17L14 20Z" fill="#ec6640"/>
+                            <path d="M24 22v-6a8 8 0 0 1 16 0v6" fill="none" stroke="#efd1b7" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="32" cy="38" r="6" fill="#131d2f"/>
+                        </svg>
+                        <span>Preencha endereço e pagamento na sacola</span>
+                    </li>
+                    <li>
+                        <span class="numero-passo" aria-hidden="true">3</span>
+                        <svg class="icone-passo" viewBox="0 0 64 64" role="img" aria-labelledby="icone-passo-3">
+                            <title id="icone-passo-3">Passo 3: hambúrguer na brasa</title>
+                            <path d="M10 28a22 14 0 0 1 44 0Z" fill="#ec6640"/>
+                            <rect x="8" y="31" width="48" height="6" rx="3" fill="#7dbb4b"/>
+                            <rect x="10" y="38" width="44" height="7" rx="3.5" fill="#6b3a22"/>
+                            <path d="M10 47h44v2a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6Z" fill="#ec6640"/>
+                            <circle cx="24" cy="20" r="1.6" fill="#efd1b7"/>
+                            <circle cx="32" cy="17" r="1.6" fill="#efd1b7"/>
+                            <circle cx="40" cy="20" r="1.6" fill="#efd1b7"/>
+                        </svg>
+                        <span>Toque em <strong>Finalizar pedido</strong> e seu burguer já vai pra brasa</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="secao-cardapio" id="cardapio" aria-labelledby="titulo-cardapio">
+            <div class="container grade-cardapio">
+                <div>
+                    <h2 class="titulo-secao" id="titulo-cardapio">Cardápio</h2>
+                    <p class="subtitulo">Toque em <b>Adicionar</b>, personalize e finalize na sacola.</p>
+
+                    <nav class="abas" aria-label="Categorias do cardápio">
+                        <a class="aba" href="#categoria-flavor" aria-current="true">Menu Flavor</a>
+                        <a class="aba" href="#categoria-combos">Combos</a>
+                        <a class="aba" href="#categoria-adicionais">Adicionais</a>
+                        <a class="aba" href="#categoria-porcoes">Porções</a>
+                        <a class="aba" href="#categoria-bebidas">Bebidas</a>
+                    </nav>
+
+                    <!-- Os itens são gerados pelo JavaScript (js/cardapio.js) a partir de js/dados.js -->
+                    <div id="lista-cardapio"></div>
+                </div>
+                <div class="faixa-lateral" aria-hidden="true"><span>CARDÁPIO</span></div>
+            </div>
+        </section>
+
+        <section class="informacoes" id="informacoes" aria-label="Informações de entrega e contato">
+            <div class="container">
+                <article class="cartao-info">
+                    <h3>Pagamento</h3>
+                    <p>Monte seu pedido e <b>pague online</b> pelo Pix ou cartão de crédito.</p>
+                </article>
+                <article class="cartao-info">
+                    <h3>Entrega</h3>
+                    <p>Pedidos com combo têm <b>entrega grátis</b>. Nos demais, a taxa é a partir de <b>R$ 5,00</b>.</p>
+                </article>
+                <article class="cartao-info">
+                    <h3>Fale com a gente</h3>
+                    <p>
+                        WhatsApp: <a id="link-whatsapp" href="https://wa.me/5583998903631" target="_blank" rel="noopener noreferrer">(83) 99890-3631</a><br>
+                        Instagram: <a href="https://www.instagram.com/_flavorgrill/" target="_blank" rel="noopener noreferrer">@_flavorgrill</a>
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p class="slogan">SINTA A DIFERENÇA</p>
+            <p><a href="https://www.instagram.com/_flavorgrill/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da The Flavor Grill: @_flavorgrill">@_flavorgrill</a></p>
+            <!-- Espaço reservado (Decreto 7.962/2013): quando o MEI sair, trocar os dados e apagar o "hidden" -->
+            <p class="rodape-empresa" hidden>The Flavor Grill · CNPJ 00.000.000/0001-00 · Endereço, João Pessoa – PB</p>
+        </div>
+    </footer>
+
+    <div class="barra-sacola" id="barra-sacola" hidden>
+        <button type="button" id="botao-barra-sacola">
+            <span id="barra-quantidade">Ver sacola</span>
+            <span id="barra-total">R$ 0,00</span>
+        </button>
+    </div>
+
+    <div class="fundo-escuro" id="fundo-escuro"></div>
+
+    <!-- Janela para personalizar o item antes de adicionar -->
+    <div class="janela" id="janela-item" role="dialog" aria-modal="true" aria-labelledby="janela-titulo" aria-hidden="true">
+        <button type="button" class="botao-fechar" data-fechar aria-label="Fechar">×</button>
+        <h3 id="janela-titulo"></h3>
+        <p class="descricao" id="janela-descricao"></p>
+
+        <label class="opcao-combo" id="opcao-combo" for="item-combo">
+            <input type="checkbox" id="item-combo">
+            <span><b>Transformar em combo · +R$&nbsp;20,00</b><small>Acompanha batata + refri lata</small><span class="selo-entrega">Entrega grátis</span></span>
+        </label>
+
+        <!-- Escolha dos burguers (combos como o Combo Casal) -->
+        <fieldset class="grupo-adicionais" id="grupo-escolhas" hidden>
+            <legend>Escolha os burguers</legend>
+            <div id="lista-escolhas"></div>
+        </fieldset>
+
+        <fieldset class="grupo-adicionais" id="grupo-adicionais">
+            <legend>Adicionais</legend>
+            <!-- Caixas de seleção criadas pelo js/cardapio.js a partir da lista ADICIONAIS -->
+            <div id="lista-adicionais"></div>
+        </fieldset>
+
+        <div class="campo">
+            <label for="item-observacao">Alguma observação?</label>
+            <textarea id="item-observacao" maxlength="160" placeholder="Ex.: sem cebola, molho à parte…"></textarea>
+        </div>
+
+        <div class="janela-rodape">
+            <div class="quantidade" role="group" aria-label="Quantidade">
+                <button type="button" id="item-menos" aria-label="Diminuir quantidade">−</button>
+                <span id="item-quantidade" aria-live="polite">1</span>
+                <button type="button" id="item-mais" aria-label="Aumentar quantidade">+</button>
+            </div>
+            <button type="button" class="botao botao-primario" id="item-adicionar">
+                <span>Adicionar</span><span id="item-preco"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sacola lateral: lista de itens e formulário de finalização -->
+    <aside class="sacola" id="sacola" aria-labelledby="sacola-titulo" aria-hidden="true">
+        <div class="sacola-topo">
+            <h2 id="sacola-titulo">Sua sacola</h2>
+            <button type="button" class="botao-fechar" data-fechar aria-label="Fechar sacola">×</button>
+        </div>
+
+        <div class="sacola-corpo" id="etapa-itens">
+            <ul id="linhas-sacola"></ul>
+            <button type="button" class="link-acao" id="esvaziar-sacola">Esvaziar sacola</button>
+        </div>
+
+        <div class="sacola-corpo" id="etapa-finalizar" hidden>
+            <button type="button" class="voltar" id="voltar-sacola">← Voltar para a sacola</button>
+
+            <form class="formulario" id="formulario-pedido">
+                <fieldset>
+                    <legend>Seus dados</legend>
+                    <div class="campo">
+                        <label for="cliente-nome">Nome *</label>
+                        <input type="text" id="cliente-nome" name="nome" autocomplete="name" minlength="2" maxlength="60" required>
+                    </div>
+                    <div class="campo">
+                        <label for="cliente-whatsapp">WhatsApp *</label>
+                        <input type="tel" id="cliente-whatsapp" name="whatsapp" autocomplete="tel-national" inputmode="numeric"
+                            placeholder="(83) 99999-9999" pattern="\(\d{2}\) \d{4,5}-\d{4}" maxlength="15"
+                            title="Informe o número com DDD, ex.: (83) 99999-9999" required>
+                    </div>
+                </fieldset>
+
+                <fieldset id="grupo-endereco">
+                    <legend>Endereço de entrega</legend>
+                    <div class="campo">
+                        <div class="rotulo-com-link">
+                            <label for="cliente-cep">CEP *</label>
+                            <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" rel="noopener">Não sei meu CEP</a>
+                        </div>
+                        <input type="text" id="cliente-cep" name="cep" autocomplete="postal-code" inputmode="numeric"
+                            placeholder="00000-000" pattern="\d{5}-\d{3}" maxlength="9"
+                            title="Informe os 8 números do CEP" required>
+                        <p class="status-cep" id="status-cep" aria-live="polite"></p>
+                        <a class="botao botao-whatsapp entrega-whatsapp" id="entrega-whatsapp" target="_blank" rel="noopener noreferrer" hidden>Pedir pelo WhatsApp</a>
+                        <!-- Crédito exigido pelas regras de uso do OpenStreetMap (dados ODbL) -->
+                        <p class="credito-mapa">Endereço pelo ViaCEP · distância com dados © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a></p>
+                    </div>
+                    <div class="duas-colunas">
+                        <div class="campo">
+                            <label for="cliente-rua">Rua *</label>
+                            <input type="text" id="cliente-rua" name="rua" autocomplete="address-line1" maxlength="80" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cliente-numero">Número *</label>
+                            <input type="text" id="cliente-numero" name="numero" maxlength="10" required>
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label for="cliente-bairro">Bairro *</label>
+                        <input type="text" id="cliente-bairro" name="bairro" maxlength="50" required>
+                    </div>
+                    <div class="campo">
+                        <label for="cliente-referencia">Complemento / ponto de referência</label>
+                        <input type="text" id="cliente-referencia" name="referencia" maxlength="100" placeholder="Apto, bloco, perto de…">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Cupom de desconto</legend>
+                    <div class="campo-cupom">
+                        <label class="sr-only" for="cliente-cupom">Código do cupom</label>
+                        <input type="text" id="cliente-cupom" name="cupom" placeholder="Tem cupom? Digite aqui" maxlength="20"
+                            autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done">
+                        <button type="button" class="botao botao-secundario" id="aplicar-cupom">Aplicar</button>
+                    </div>
+                    <p class="status-cupom" id="status-cupom" aria-live="polite"></p>
+                    <button type="button" class="link-acao" id="remover-cupom" hidden>Remover cupom</button>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Pagamento</legend>
+                    <div class="bloco-pagamento">
+                        <p class="bloco-pagamento-titulo">Pagamento online</p>
+                        <p>Pix ou cartão de crédito. Ao finalizar, você paga na página segura da InfinitePay e seu pedido vai direto pra cozinha.</p>
+                    </div>
+                </fieldset>
+
+                <div class="campo">
+                    <label for="cliente-observacoes">Observações do pedido</label>
+                    <!-- Observações feitas em cada item (preenchida pelo js/checkout.js) -->
+                    <ul class="obs-itens" id="obs-itens" hidden></ul>
+                    <textarea id="cliente-observacoes" name="observacoes" maxlength="200" placeholder="Algo que a gente precise saber?"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <!-- Volta do pagamento: confirma o pedido pago (preenchida pelo js/checkout.js) -->
+        <div class="sacola-corpo" id="etapa-pronto" hidden>
+            <img class="pronto-mascote" src="assets/images/logo.webp" alt="" width="160" height="145">
+            <p class="pronto-titulo" id="pronto-titulo" role="status" tabindex="-1">Confirmando seu pagamento…</p>
+            <p class="pronto-texto" id="pronto-texto">Isso leva só alguns segundos.</p>
+            <a class="botao botao-whatsapp botao-largo" id="pronto-whatsapp" target="_blank" rel="noopener noreferrer" hidden>Falar com a loja no WhatsApp</a>
+            <div class="pronto-acoes">
+                <button type="button" class="link-acao" id="novo-pedido">Fazer um novo pedido</button>
+            </div>
+        </div>
+
+        <div class="sacola-rodape">
+            <p class="linha-valor"><span>Subtotal</span><span id="subtotal">R$ 0,00</span></p>
+            <p class="linha-valor linha-desconto" id="linha-desconto" hidden><span>Desconto</span><span id="valor-desconto"></span></p>
+            <p class="linha-valor"><span>Entrega</span><span id="valor-entrega">a calcular</span></p>
+            <p class="total"><span>Total</span><span id="total">R$ 0,00</span></p>
+            <p class="aviso-taxa" id="aviso-taxa"></p>
+            <p class="erro-pedido" id="erro-pedido" role="alert" hidden></p>
+            <p class="nota-dados">Ao continuar, você concorda com o uso dos seus dados para a entrega. <a href="privacidade.html">Saiba mais</a></p>
+            <button type="button" class="botao botao-primario botao-largo" id="continuar">Continuar</button>
+            <button type="submit" form="formulario-pedido" class="botao botao-primario botao-largo" id="finalizar" hidden>Ir para o pagamento</button>
+        </div>
+
+        <!-- Animação: a vaquinha surge antes de ir para a página de pagamento -->
+        <div class="confirmacao" id="confirmacao" hidden>
+            <img src="assets/images/logo.webp" alt="" width="180" height="163">
+            <p role="status">Pedido recebido! Indo para o pagamento…</p>
+        </div>
+    </aside>
+
+    <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+    <!-- defer: os scripts só rodam depois que o HTML inteiro foi carregado, na ordem abaixo -->
+    <script src="js/dados.js" defer></script>
+    <script src="js/interface.js" defer></script>
+    <script src="js/cardapio.js" defer></script>
+    <script src="js/carrinho.js" defer></script>
+    <script src="js/cupom.js" defer></script>
+    <script src="js/checkout.js" defer></script>
+</body>
+</html>

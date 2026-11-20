@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#131d2f">
+    <title>Painel | The Flavor Grill</title>
+    <link rel="icon" href="/assets/images/logo.webp" type="image/webp">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="painel.css">
+    <script src="painel.js" defer></script>
+</head>
+<body data-avisos="0">
+    <header class="topo">
+        <div class="topo-marca">
+            <img src="/assets/images/logo.webp" alt="" width="40" height="36">
+            <div>
+                <h1>Painel</h1>
+                <p class="usuario" id="usuario">Entrando…</p>
+            </div>
+        </div>
+        <button type="button" class="chave-loja" id="chave-loja" role="switch" aria-checked="false" aria-label="Loja aberta" hidden>
+            <span class="chave-trilho" aria-hidden="true"><span class="chave-bolinha"></span></span>
+            <span class="chave-texto">Loja fechada</span>
+        </button>
+    </header>
+
+    <p class="faixa faixa-erro" id="sem-conexao" role="status" hidden>Sem conexão, tentando de novo…</p>
+
+    <main id="conteudo" hidden>
+        <div class="barra-abas" role="tablist" aria-label="Seções do painel" id="abas">
+            <button type="button" role="tab" id="aba-pedidos" aria-controls="pedidos" aria-selected="true">Pedidos</button>
+            <button type="button" role="tab" id="aba-cupons" aria-controls="cupons" aria-selected="false" data-so-dono hidden>Cupons</button>
+            <button type="button" role="tab" id="aba-resumo" aria-controls="resumo" aria-selected="false" data-so-dono hidden>Resumo</button>
+            <button type="button" role="tab" id="aba-equipe" aria-controls="equipe" aria-selected="false" data-so-dono hidden>Equipe</button>
+        </div>
+
+        <section class="painel-secao" id="pedidos" role="tabpanel" aria-labelledby="aba-pedidos">
+            <div class="som">
+                <button type="button" class="botao botao-secundario" id="botao-som" aria-pressed="false">Ativar som</button>
+                <p class="dica">O aviso toca quando chega pedido pago. Mantenha esta tela aberta.</p>
+            </div>
+            <div id="lista-pedidos" aria-live="polite"></div>
+        </section>
+
+        <section class="painel-secao" id="cupons" role="tabpanel" aria-labelledby="aba-cupons" hidden>
+            <h2>Cupons</h2>
+            <div id="lista-cupons"></div>
+            <form class="formulario" id="form-cupom">
+                <h3 id="titulo-form-cupom">Novo cupom</h3>
+                <div class="campo">
+                    <label for="cupom-codigo">Código</label>
+                    <input id="cupom-codigo" name="codigo" required minlength="3" maxlength="20" pattern="[A-Za-z0-9]{3,20}" autocapitalize="characters" autocomplete="off">
+                </div>
+                <div class="campos-lado">
+                    <div class="campo">
+                        <label for="cupom-tipo">Tipo</label>
+                        <select id="cupom-tipo" name="tipo">
+                            <option value="porcentagem">Porcentagem (%)</option>
+                            <option value="fixo">Valor fixo (R$)</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="cupom-valor">Desconto</label>
+                        <input id="cupom-valor" name="valor" required inputmode="decimal" placeholder="10">
+                    </div>
+                </div>
+                <div class="campos-lado">
+                    <div class="campo">
+                        <label for="cupom-minimo">Pedido mínimo (R$)</label>
+                        <input id="cupom-minimo" name="minimo" inputmode="decimal" placeholder="0,00">
+                    </div>
+                    <div class="campo">
+                        <label for="cupom-limite">Limite de usos</label>
+                        <input id="cupom-limite" name="limite" inputmode="numeric" placeholder="Sem limite">
+                    </div>
+                </div>
+                <div class="campo">
+                    <label for="cupom-validade">Vale até (opcional)</label>
+                    <input id="cupom-validade" name="validade" type="date">
+                </div>
+                <label class="opcao"><input type="checkbox" name="primeiraCompra"> Só na primeira compra</label>
+                <label class="opcao"><input type="checkbox" name="ativo" checked> Ativo</label>
+                <p class="mensagem-form" id="mensagem-cupom" role="status"></p>
+                <button type="submit" class="botao botao-primario">Salvar cupom</button>
+            </form>
+        </section>
+
+        <section class="painel-secao" id="resumo" role="tabpanel" aria-labelledby="aba-resumo" hidden>
+            <h2>Resumo</h2>
+            <div class="cartoes-resumo" id="cartoes-resumo"></div>
+        </section>
+
+        <section class="painel-secao" id="equipe" role="tabpanel" aria-labelledby="aba-equipe" hidden>
+            <h2>Quem acessa o painel</h2>
+            <ul class="lista-equipe" id="lista-equipe"></ul>
+            <form class="formulario" id="form-equipe">
+                <h3>Adicionar pessoa</h3>
+                <div class="campo">
+                    <label for="equipe-email">E-mail</label>
+                    <input id="equipe-email" name="email" type="email" required autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="equipe-papel">Pode fazer</label>
+                    <select id="equipe-papel" name="papel">
+                        <option value="equipe">Pedidos e loja (equipe)</option>
+                        <option value="dono">Tudo (dono)</option>
+                    </select>
+                </div>
+                <p class="mensagem-form" id="mensagem-equipe" role="status"></p>
+                <button type="submit" class="botao botao-primario">Adicionar</button>
+            </form>
+        </section>
+    </main>
+
+    <section class="sem-acesso" id="sem-acesso" hidden>
+        <img src="/assets/images/logo.webp" alt="" width="140" height="127">
+        <p>Seu e-mail não tem acesso. Peça ao dono para adicionar.</p>
+    </section>
+</body>
+</html>

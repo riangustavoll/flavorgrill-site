@@ -1,0 +1,30 @@
+// Configuração do servidor da The Flavor Grill na Cloudflare.
+// Nada aqui é segredo. O que muda de uma conta para outra fica no painel da Cloudflare
+// (Worker > Settings > Variables and Secrets), veja docs/LIGAR-NA-CLOUDFLARE.md:
+//   INFINITEPAY_API_KEY (secret), DONO_EMAIL (secret), SITE_URL, ACCESS_TEAM_DOMAIN, ACCESS_AUD
+{
+  "name": "flavorgrill",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "flavorgrill",
+      // Troque pelo ID do banco criado no painel da Cloudflare (passo 2 de docs/LIGAR-NA-CLOUDFLARE.md)
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Mantém as variáveis cadastradas no painel da Cloudflare a cada nova publicação
+  "keep_vars": true,
+  "vars": {
+    "INFINITEPAY_HANDLE": "rian-gustavo",
+    "INFINITEPAY_BASE": "https://api.checkout.infinitepay.io",
+    "AMBIENTE": "producao"
+  }
+}

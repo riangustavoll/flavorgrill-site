@@ -1,0 +1,2099 @@
+/*
+  style.css — The Flavor Grill
+  Identidade visual baseada no cardápio impresso da marca:
+  fundo pêssego, azul-marinho, laranja e títulos condensados.
+*/
+
+/* ==========================================================
+   1. Fontes (arquivos locais em assets/fonts)
+   ========================================================== */
+@font-face {
+    font-family: "Bebas Neue";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../assets/fonts/bebas-neue-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Modak";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../assets/fonts/modak-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("../assets/fonts/montserrat-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("../assets/fonts/montserrat-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("../assets/fonts/montserrat-latin-700-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: url("../assets/fonts/montserrat-latin-700-italic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url("../assets/fonts/montserrat-latin-800-normal.woff2") format("woff2");
+}
+
+/* ==========================================================
+   2. Variáveis e base
+   ========================================================== */
+:root {
+    --cor-pessego: #efd1b7;
+    --cor-pessego-claro: #f5dfcb;
+    --cor-pessego-escuro: #e6c1a3;
+    --cor-marinho: #131d2f;
+    --cor-marinho-claro: #24314a;
+    --cor-laranja: #ec6640;
+    --cor-laranja-escuro: #d9532e;
+    --cor-laranja-claro: #f07a58;
+    /* Laranja mais escuro só para TEXTO sobre o pêssego: contraste mínimo 4,5:1 (WCAG AA) */
+    --cor-laranja-texto: #ad3f1b;
+    /* Verde escurecido: texto branco do botão do WhatsApp com contraste 5,02:1 */
+    --cor-verde: #15803d;
+    --cor-erro: #b3261e;
+    --raio: 16px;
+    --fonte-titulo: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+    --fonte-texto: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --altura-topo: 64px;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 76px;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: var(--fonte-texto);
+    background: var(--cor-pessego);
+    color: var(--cor-marinho);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+}
+
+/* Foco visível em todos os elementos interativos (navegação por Tab) */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--cor-laranja);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+.container {
+    width: min(1120px, 100% - 40px);
+    margin-inline: auto;
+}
+
+/* Texto disponível apenas para leitores de tela */
+/* Link "Pular para o cardápio": escondido até receber o foco do teclado */
+.pular-conteudo {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 100;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    font-weight: 800;
+    transform: translateY(-200%);
+}
+
+.pular-conteudo:focus {
+    transform: none;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ==========================================================
+   3. Cabeçalho e menu de navegação
+   ========================================================== */
+.topo {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(239, 209, 183, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--cor-marinho);
+}
+
+.topo .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: var(--altura-topo);
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.marca img {
+    width: 46px;
+    height: auto;
+}
+
+.marca span {
+    font-family: var(--fonte-titulo);
+    font-size: 26px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.menu-principal ul {
+    display: flex;
+    gap: 22px;
+}
+
+.menu-principal a {
+    display: block;
+    padding: 6px 2px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.menu-principal a:focus-visible {
+    color: var(--cor-laranja-texto);
+    border-bottom-color: var(--cor-laranja);
+}
+
+@media (hover: hover) {
+    .menu-principal a:hover {
+        color: var(--cor-laranja-texto);
+        border-bottom-color: var(--cor-laranja);
+    }
+}
+
+.acoes-topo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Botão do menu hambúrguer: só aparece em telas pequenas */
+.botao-menu {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 2px solid var(--cor-marinho);
+    place-items: center;
+}
+
+@media (hover: hover) {
+    .botao-menu:hover {
+        background: var(--cor-pessego-escuro);
+    }
+}
+
+.botao-menu .linhas,
+.botao-menu .linhas::before,
+.botao-menu .linhas::after {
+    display: block;
+    width: 20px;
+    height: 2.5px;
+    background: var(--cor-marinho);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.botao-menu .linhas {
+    position: relative;
+}
+
+.botao-menu .linhas::before,
+.botao-menu .linhas::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.botao-menu .linhas::before {
+    top: -6px;
+}
+
+.botao-menu .linhas::after {
+    top: 6px;
+}
+
+/* Ícone vira "X" quando o menu está aberto */
+.botao-menu[aria-expanded="true"] .linhas {
+    background: transparent;
+}
+
+.botao-menu[aria-expanded="true"] .linhas::before {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.botao-menu[aria-expanded="true"] .linhas::after {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+.botao-sacola {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+@media (hover: hover) {
+    .botao-sacola:hover {
+        background: var(--cor-marinho-claro);
+    }
+}
+
+.contador {
+    display: inline-grid;
+    place-items: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 11px;
+    background: var(--cor-laranja);
+    color: var(--cor-marinho);
+    font-size: 12px;
+}
+
+/* ==========================================================
+   4. Botões
+   ========================================================== */
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 16px;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+/* Ação primária: laranja com sombra sólida */
+.botao-primario {
+    background: var(--cor-laranja);
+    color: var(--cor-marinho);
+    box-shadow: 0 5px 0 var(--cor-marinho);
+}
+
+@media (hover: hover) {
+    .botao-primario:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 0 var(--cor-marinho);
+    }
+}
+
+.botao-primario:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 var(--cor-marinho);
+}
+
+/* Ação secundária: apenas contorno */
+.botao-secundario {
+    border: 2px solid var(--cor-marinho);
+}
+
+@media (hover: hover) {
+    .botao-secundario:hover {
+        background: var(--cor-marinho);
+        color: var(--cor-pessego);
+    }
+}
+
+.botao-whatsapp {
+    background: var(--cor-verde);
+    color: #fff;
+    box-shadow: 0 5px 0 var(--cor-marinho);
+}
+
+@media (hover: hover) {
+    .botao-whatsapp:hover {
+        filter: brightness(1.06);
+    }
+}
+
+.botao-largo {
+    width: 100%;
+}
+
+.botao:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.link-acao {
+    padding: 13px 0;
+    margin: -9px 0 -13px;
+}
+
+.link-acao {
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: underline;
+    opacity: 0.75;
+}
+
+@media (hover: hover) {
+    .link-acao:hover {
+        opacity: 1;
+    }
+}
+
+/* ==========================================================
+   5. Abertura (hero)
+   ========================================================== */
+.abertura {
+    position: relative;
+    overflow: hidden;
+    padding: 84px 0 72px;
+}
+
+.pontos {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 120px;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--cor-ponto) 5px, transparent 5.5px);
+    background-size: 30px 30px;
+}
+
+.pontos-topo {
+    top: 0;
+    --cor-ponto: var(--cor-laranja);
+    -webkit-mask-image: linear-gradient(#000, transparent);
+    mask-image: linear-gradient(#000, transparent);
+}
+
+.pontos-base {
+    bottom: 0;
+    --cor-ponto: var(--cor-marinho);
+    -webkit-mask-image: linear-gradient(transparent, #000);
+    mask-image: linear-gradient(transparent, #000);
+}
+
+.abertura .container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 32px;
+}
+
+.abertura h1 {
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 132px);
+    line-height: 0.86;
+    letter-spacing: 1px;
+}
+
+.abertura h1 em {
+    font-style: normal;
+    color: var(--cor-laranja-texto);
+}
+
+.chamada {
+    max-width: 540px;
+    margin: 20px 0 28px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.grupo-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mascote {
+    justify-self: center;
+    width: min(380px, 80%);
+    /* Altura acompanha a largura: a vaquinha nunca fica esticada */
+    height: auto;
+    filter: drop-shadow(0 18px 24px rgba(19, 29, 47, 0.22));
+    animation: flutuar 5s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+    50% {
+        transform: translateY(-10px) rotate(-1.5deg);
+    }
+}
+
+/* ==========================================================
+   6. Como pedir (passos com ícones SVG)
+   ========================================================== */
+.passos {
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    padding: 26px 0;
+}
+
+.passos ol {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.passos li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Linha vertical separando os passos */
+.passos li + li {
+    padding-left: 18px;
+    border-left: 2px solid rgba(239, 209, 183, 0.35);
+}
+
+.icone-passo {
+    flex: none;
+    width: 52px;
+    height: 52px;
+}
+
+/* Número do passo (a lista <ol> já informa a ordem aos leitores de tela) */
+.numero-passo {
+    flex: none;
+    min-width: 20px;
+    margin-right: -8px;
+    font-family: var(--fonte-titulo);
+    font-size: 52px;
+    line-height: 1;
+    color: var(--cor-laranja);
+}
+
+/* ==========================================================
+   7. Cardápio
+   ========================================================== */
+.secao-cardapio {
+    padding: 56px 0 72px;
+}
+
+.grade-cardapio {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 92px;
+    gap: 32px;
+}
+
+.grade-cardapio > div {
+    min-width: 0;
+}
+
+.faixa-lateral {
+    position: sticky;
+    top: 88px;
+    display: grid;
+    place-items: center;
+    height: calc(100vh - 120px);
+    max-height: 720px;
+    overflow: hidden;
+    background: var(--cor-laranja);
+    border-radius: 12px;
+}
+
+.faixa-lateral span {
+    font-family: "Modak", var(--fonte-titulo);
+    font-size: 84px;
+    line-height: 1;
+    letter-spacing: 2px;
+    color: var(--cor-marinho);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg) translateX(-4px);
+}
+
+.titulo-secao {
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: clamp(44px, 6vw, 64px);
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.subtitulo {
+    font-weight: 600;
+    opacity: 0.8;
+    margin-bottom: 22px;
+}
+
+.abas {
+    position: sticky;
+    top: var(--altura-topo);
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 12px 0;
+    margin-bottom: 12px;
+    background: var(--cor-pessego);
+}
+
+.abas::-webkit-scrollbar {
+    display: none;
+}
+
+.aba {
+    flex: none;
+    white-space: nowrap;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 2px solid var(--cor-marinho);
+    font-weight: 800;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .aba:hover {
+        background: var(--cor-pessego-escuro);
+    }
+}
+
+.aba[aria-current="true"] {
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+}
+
+.categoria {
+    margin-bottom: 44px;
+}
+
+/* Ao clicar numa aba, a seção para abaixo do cabeçalho e da barra de abas */
+.categoria,
+.item-combo {
+    scroll-margin-top: 140px;
+}
+
+.categoria h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: 34px;
+    letter-spacing: 0.5px;
+}
+
+.categoria h3::after {
+    content: "";
+    flex: 1;
+    border-bottom: 4px dotted var(--cor-marinho);
+    opacity: 0.6;
+    transform: translateY(-6px);
+}
+
+.itens {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 20px 18px;
+    background: var(--cor-pessego-claro);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+@media (hover: hover) {
+    .item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 0 var(--cor-marinho);
+    }
+}
+
+.item h4 {
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 0.95;
+    letter-spacing: 0.5px;
+}
+
+.item h4 .destaque {
+    color: var(--cor-laranja-texto);
+}
+
+.item p {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.item-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.preco {
+    font-size: 20px;
+    font-weight: 800;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.botao-adicionar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 18px;
+    border-radius: 999px;
+    background: var(--cor-laranja);
+    color: var(--cor-marinho);
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: 0 3px 0 var(--cor-marinho);
+    transition: transform 0.1s;
+}
+
+@media (hover: hover) {
+    .botao-adicionar:hover {
+        background: var(--cor-laranja-claro);
+    }
+}
+
+.botao-adicionar:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--cor-marinho);
+}
+
+.etiqueta {
+    align-self: flex-start;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Cards de promoção com borda pontilhada (estilo cupom) */
+/* Cards da aba Combos: destaque com borda laranja */
+.item-pacote {
+    border-color: var(--cor-laranja);
+    border-width: 3px;
+}
+
+/* Itens do combo em destaque */
+.item .pacote-inclui {
+    flex: 0;
+    padding: 10px 14px;
+    border-left: 5px solid var(--cor-laranja);
+    border-radius: 6px;
+    background: var(--cor-marinho);
+    color: #fff;
+    font-family: var(--fonte-titulo);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.5px;
+    opacity: 1;
+}
+
+.item-pacote .selo-entrega {
+    margin-top: -2px;
+}
+
+.escolha-burguer select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 10px;
+    background: #fff8f2;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.escolha-burguer select:focus {
+    outline: 3px solid var(--cor-laranja);
+    outline-offset: 1px;
+}
+
+.escolha-burguer + .escolha-burguer {
+    margin-top: 10px;
+}
+
+#lista-escolhas {
+    padding-bottom: 10px;
+}
+
+.item-promocao {
+    grid-column: 1 / -1;   /* ocupa a linha inteira da grade */
+    justify-content: center;
+    background: var(--cor-laranja);
+    color: var(--cor-marinho);
+    border: 4px dashed var(--cor-marinho);
+}
+
+@media (hover: hover) {
+    .item-info:hover,
+    .item-promocao:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+.item-promocao h4 .destaque {
+    color: var(--cor-marinho);
+}
+
+.item-promocao p {
+    opacity: 1;
+}
+
+.item-promocao .etiqueta {
+    color: var(--cor-pessego);
+}
+
+/* Card do combo individual (azul-marinho com borda pontilhada laranja) */
+.item-combo {
+    /* Ocupa a linha inteira do cardápio */
+    grid-column: 1 / -1;
+    justify-content: center;
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    border: 4px dashed var(--cor-laranja);
+}
+
+@media (hover: hover) {
+    .item-combo:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+.item-combo .etiqueta {
+    background: var(--cor-laranja);
+    color: var(--cor-marinho);
+}
+
+.item-combo .valor {
+    font-family: var(--fonte-titulo);
+    font-size: 52px;
+    line-height: 1;
+    color: var(--cor-laranja);
+}
+
+.item-combo p {
+    flex: 0;
+    opacity: 1;
+}
+
+/* O que vem no combo: frase em destaque */
+.item-combo .combo-inclui {
+    font-family: var(--fonte-titulo);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+
+.selo-entrega {
+    align-self: flex-start;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--cor-verde);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.item-combo .combo-instrucao {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* ==========================================================
+   9. Informações e rodapé
+   ========================================================== */
+.informacoes {
+    padding: 56px 0;
+    background: var(--cor-pessego-escuro);
+    border-top: 2px solid var(--cor-marinho);
+}
+
+.informacoes .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.cartao-info {
+    padding: 22px;
+    background: var(--cor-pessego-claro);
+    border: 2px solid var(--cor-marinho);
+    border-radius: var(--raio);
+}
+
+.cartao-info h3 {
+    margin-bottom: 8px;
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.cartao-info p {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cartao-info a {
+    font-weight: 800;
+    color: var(--cor-laranja-texto);
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .cartao-info a:hover {
+        text-decoration: underline;
+    }
+}
+
+.rodape {
+    padding: 28px 0 110px;
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Site e Instagram no rodapé: área de toque de 44px no celular */
+.rodape a {
+    display: inline-block;
+    padding: 12px 2px;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Sem sublinhado, o link mostra o sublinhado só ao passar o mouse ou focar pelo teclado */
+.rodape a:hover,
+.rodape a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.rodape .slogan {
+    margin-bottom: 6px;
+    font-family: var(--fonte-titulo);
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: var(--cor-laranja);
+}
+
+/* ==========================================================
+   10. Barra flutuante da sacola (celular)
+   ========================================================== */
+.barra-sacola {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 25;
+}
+
+.barra-sacola button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: var(--cor-laranja);
+    color: var(--cor-marinho);
+    font-weight: 800;
+    box-shadow: 0 5px 0 var(--cor-marinho), 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================
+   11. Fundo escuro, sacola lateral e janela do item
+   ========================================================== */
+.fundo-escuro {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(19, 29, 47, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.fundo-escuro.aberto {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sacola {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    width: min(440px, 100%);
+    background: var(--cor-pessego);
+    border-left: 2px solid var(--cor-marinho);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.25s ease, visibility 0.25s;
+}
+
+.sacola.aberto {
+    transform: none;
+    visibility: visible;
+    /* Ao abrir, fica visível na hora (e pode receber o foco); ao fechar, some no fim da animação */
+    transition: transform 0.25s ease, visibility 0s;
+}
+
+.sacola-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--cor-marinho);
+}
+
+.sacola-topo h2 {
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1;
+}
+
+.botao-fechar {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+@media (hover: hover) {
+    .botao-fechar:hover {
+        background: var(--cor-pessego-escuro);
+    }
+}
+
+.sacola-corpo {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px 24px;
+}
+
+.sacola-rodape {
+    padding: 14px 20px 18px;
+    border-top: 2px solid var(--cor-marinho);
+    background: var(--cor-pessego-claro);
+}
+
+.sacola-vazia {
+    padding: 40px 10px;
+    text-align: center;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.sacola-vazia img {
+    width: 120px;
+    margin: 0 auto 14px;
+}
+
+.linha {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+    padding: 14px 0;
+    border-bottom: 2px dotted rgba(19, 29, 47, 0.35);
+}
+
+.linha-nome,
+.linha-preco {
+    font-weight: 800;
+}
+
+.linha-preco {
+    text-align: right;
+}
+
+.linha-detalhes {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.75;
+}
+
+.linha-controles {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quantidade {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 6px;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.quantidade button {
+    width: 34px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+@media (hover: hover) {
+    .quantidade button:hover {
+        background: var(--cor-pessego-escuro);
+    }
+}
+
+.quantidade span {
+    min-width: 26px;
+    text-align: center;
+    font-weight: 800;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.linha-valor {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    opacity: 0.85;
+}
+
+.linha-valor[hidden] {
+    display: none;
+}
+
+.linha-desconto {
+    color: #166534;
+    opacity: 1;
+}
+
+/* Cupom de desconto */
+.campo-cupom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+}
+
+.campo-cupom input {
+    text-transform: uppercase;
+}
+
+.campo-cupom input::placeholder {
+    text-transform: none;
+}
+
+.campo-cupom .botao {
+    padding-inline: 18px;
+}
+
+.status-cupom {
+    min-height: 1.4em;
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.status-cupom[data-estado="ok"] {
+    color: #166534;
+}
+
+.status-cupom[data-estado="erro"] {
+    color: var(--cor-erro);
+}
+
+.rotulo-com-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.rotulo-com-link a {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--cor-marinho);
+}
+
+.status-cep {
+    min-height: 1.4em;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.credito-mapa {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.credito-mapa a {
+    /* Área de toque de 44px sem mudar o espaço da linha */
+    display: inline-block;
+    padding: 14px 2px;
+    margin: -14px 0;
+    color: inherit;
+    text-decoration: underline;
+}
+
+.status-cep[data-estado="ok"] {
+    /* Verde mais escuro para texto pequeno sobre o pêssego (contraste acima de 4,5:1) */
+    color: #166534;
+}
+
+.status-cep[data-estado="falhou"] {
+    color: var(--cor-erro);
+}
+
+.obs-itens {
+    display: grid;
+    gap: 4px;
+    margin: 0 0 8px;
+    padding: 10px 12px;
+    list-style: none;
+    border-left: 4px solid var(--cor-laranja);
+    border-radius: 0 10px 10px 0;
+    background: rgba(255, 248, 242, 0.7);
+    font-size: 14px;
+}
+
+.aviso-taxa {
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.75;
+}
+
+/* Formulário de finalização */
+.formulario {
+    display: grid;
+    gap: 14px;
+}
+
+.formulario fieldset {
+    display: grid;
+    gap: 10px;
+    border: 0;
+}
+
+.formulario legend {
+    margin-bottom: 6px;
+    font-family: var(--fonte-titulo);
+    font-size: 24px;
+}
+
+.campo {
+    display: grid;
+    gap: 5px;
+}
+
+.campo label,
+.rotulo {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.campo input,
+.campo textarea,
+.campo-cupom input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 10px;
+    background: #fff8f2;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.campo textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.campo input:focus,
+.campo textarea:focus,
+.campo-cupom input:focus {
+    outline: 3px solid var(--cor-laranja);
+    outline-offset: 1px;
+}
+
+/* Campo inválido só é destacado depois que o usuário interage */
+.campo input:user-invalid {
+    border-color: var(--cor-erro);
+    background: #fff0ee;
+}
+
+.duas-colunas {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+
+/* Seletor de opções (radio estilizado como botões) */
+.opcoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 12px;
+}
+
+.opcoes-tres {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.opcoes input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.opcoes label {
+    display: block;
+    padding: 11px 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border-right: 2px solid var(--cor-marinho);
+}
+
+.opcoes label:last-of-type {
+    border-right: 0;
+}
+
+.opcoes input:checked + label {
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+}
+
+.opcoes input:focus-visible + label {
+    outline: 3px solid var(--cor-laranja);
+    outline-offset: -3px;
+}
+
+/* Etapa "pedido pronto" */
+.pronto-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 30px;
+    line-height: 1;
+    color: var(--cor-laranja-texto);
+}
+
+.pronto-texto {
+    margin: 8px 0 16px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.pronto-acoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.voltar {
+    justify-self: start;
+    margin-bottom: 6px;
+    font-weight: 800;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+/* Janela de personalização do item */
+.janela {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 60;
+    width: min(480px, 100% - 24px);
+    max-height: calc(100% - 24px);
+    overflow-y: auto;
+    padding: 22px;
+    background: var(--cor-pessego);
+    border: 2px solid var(--cor-marinho);
+    border-radius: 20px;
+    box-shadow: 0 8px 0 var(--cor-marinho);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -46%) scale(0.98);
+    transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+
+.janela.aberto {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.18s, transform 0.18s, visibility 0s;
+}
+
+.janela h3 {
+    padding-right: 40px;
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 0.95;
+}
+
+.janela .descricao {
+    margin: 8px 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.janela .botao-fechar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.janela .campo {
+    margin-bottom: 12px;
+}
+
+.opcao-combo {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 14px;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 12px;
+    background: var(--cor-pessego-claro);
+    cursor: pointer;
+}
+
+.opcao-combo input {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    accent-color: var(--cor-laranja);
+}
+
+.opcao-combo b {
+    display: block;
+}
+
+.opcao-combo .selo-entrega {
+    display: block;
+    width: fit-content;
+    margin-top: 8px;
+    padding: 4px 12px;
+    font-size: 12px;
+}
+
+.opcao-combo small {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.grupo-adicionais {
+    margin-bottom: 12px;
+    padding: 12px 14px 6px;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 12px;
+    background: var(--cor-pessego-claro);
+}
+
+.grupo-adicionais legend {
+    padding: 0 6px;
+    font-family: var(--fonte-titulo);
+    font-size: 22px;
+}
+
+.opcao-adicional {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 9px 0;
+    border-bottom: 2px dotted rgba(19, 29, 47, 0.25);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.opcao-adicional:last-child {
+    border-bottom: 0;
+}
+
+.opcao-adicional input {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    accent-color: var(--cor-laranja);
+}
+
+.opcao-adicional span {
+    flex: 1;
+}
+
+.opcao-adicional small {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--cor-laranja-texto);
+}
+
+.opcao-adicional:has(input:focus-visible) {
+    outline: 3px solid var(--cor-laranja);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.aviso-item {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--cor-laranja-texto);
+}
+
+.janela-rodape {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.janela-rodape .botao {
+    flex: 1;
+    justify-content: space-between;
+    padding: 14px 20px;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+/* Aviso rápido (toast) */
+.aviso {
+    position: fixed;
+    left: 50%;
+    top: 78px;
+    z-index: 70;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -12px);
+    transition: 0.2s;
+}
+
+.aviso.visivel {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/*
+  Elementos com o atributo hidden precisam vencer o display
+  definido pelas classes acima (sem usar !important).
+*/
+.botao[hidden],
+.campo[hidden],
+.opcao-combo[hidden],
+.formulario fieldset[hidden],
+.grupo-adicionais[hidden],
+.barra-sacola[hidden],
+.link-acao[hidden],
+.sacola-corpo[hidden] {
+    display: none;
+}
+
+/* ==========================================================
+   12. Responsividade
+   ========================================================== */
+@media (max-width: 860px) {
+    .grade-cardapio {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .faixa-lateral {
+        position: static;
+        order: -1;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .faixa-lateral span {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 56px;
+    }
+
+    .secao-cardapio .titulo-secao {
+        display: none;
+    }
+
+    .itens,
+    .informacoes .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    /* Menu hambúrguer: a lista vira um painel abaixo do cabeçalho */
+    .botao-menu {
+        display: grid;
+    }
+
+    .menu-principal {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        display: none;
+        background: var(--cor-pessego);
+        border-bottom: 2px solid var(--cor-marinho);
+        box-shadow: 0 12px 24px rgba(19, 29, 47, 0.15);
+    }
+
+    .menu-principal.aberto {
+        display: block;
+    }
+
+    .menu-principal ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 8px 20px 14px;
+    }
+
+    .menu-principal a {
+        padding: 14px 4px;
+        font-size: 16px;
+        border-bottom: 2px dotted rgba(19, 29, 47, 0.3);
+    }
+
+    .menu-principal li:last-child a {
+        border-bottom: 0;
+    }
+
+    .marca span {
+        font-size: 22px;
+    }
+
+    .marca img {
+        width: 40px;
+    }
+
+    .botao-sacola {
+        padding: 9px 14px;
+    }
+
+    .abertura {
+        padding: 36px 0 56px;
+        text-align: center;
+    }
+
+    .abertura .container {
+        grid-template-columns: 1fr;
+    }
+
+    .mascote {
+        order: -1;
+        width: 230px;
+    }
+
+    .chamada {
+        margin-inline: auto;
+    }
+
+    .grupo-botoes {
+        justify-content: center;
+    }
+
+    .passos ol {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* No celular os passos ficam empilhados: o separador vira horizontal */
+    .passos li + li {
+        padding-left: 0;
+        padding-top: 12px;
+        border-left: 0;
+        border-top: 2px solid rgba(239, 209, 183, 0.25);
+    }
+
+    .icone-passo {
+        width: 44px;
+        height: 44px;
+    }
+
+    .numero-passo {
+        font-size: 40px;
+    }
+}
+
+@media (min-width: 761px) {
+    .rodape {
+        padding-bottom: 28px;
+    }
+
+    .barra-sacola {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .texto-sacola {
+        display: none;
+    }
+}
+
+@media (max-width: 360px) {
+    .marca span {
+        font-size: 18px;
+    }
+}
+
+/* ==========================================================
+   13. Celular (Android e iPhone)
+   ========================================================== */
+
+/* Mantém o tamanho do texto ao girar o iPhone e tira o "flash" cinza do toque */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Toque responde na hora (sem esperar o "toque duplo para zoom") */
+a,
+button,
+label,
+summary,
+input,
+select,
+textarea {
+    touch-action: manipulation;
+}
+
+/* Sem efeito de passar o mouse, o toque ganha um retorno visual próprio */
+.botao:active,
+.botao-adicionar:active,
+.barra-sacola button:active,
+.quantidade button:active {
+    transform: translateY(2px);
+}
+
+/* Sacola ou janela aberta: a página do fundo não rola junto */
+.rolagem-travada,
+.rolagem-travada body {
+    overflow: hidden;
+}
+
+.sacola-corpo,
+.janela {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Botões de quantidade com área de toque confortável (mínimo ~44px) */
+.quantidade button {
+    width: 44px;
+    height: 40px;
+}
+
+/* Links pequenos: área de toque maior sem mudar o visual */
+.link-acao,
+.voltar,
+.cartao-info a,
+.rotulo-com-link a {
+    display: inline-block;
+    padding-block: 13px;
+    margin-block: -13px;
+}
+
+/* Marca do topo: área de toque de 44px, como pedem Apple e Google */
+.marca {
+    min-height: 44px;
+}
+
+/* Celular deitado ou tablet: links do menu com área de toque maior */
+@media (pointer: coarse) {
+    .menu-principal a {
+        padding-block: 12px;
+    }
+}
+
+/* Área segura do iPhone (notch e barra de início) */
+.topo .container,
+.container {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+.barra-sacola {
+    left: calc(12px + env(safe-area-inset-left));
+    right: calc(12px + env(safe-area-inset-right));
+    bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+.rodape {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom));
+}
+
+.sacola-topo {
+    padding-top: calc(16px + env(safe-area-inset-top));
+}
+
+.sacola-rodape {
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+}
+
+/* Na volta do pagamento não há totais nem botões no rodapé */
+.sacola[data-etapa="pronto"] .sacola-rodape {
+    display: none;
+}
+
+/* Celular (em pé ou deitado): a janela do item vira uma "gaveta" que sobe
+   do rodapé, com o botão Adicionar sempre visível */
+@media (max-width: 600px), (max-height: 500px) {
+    .janela {
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 0;
+        width: 100%;
+        max-height: calc(100% - 40px);
+        max-height: calc(100dvh - 40px);
+        padding-bottom: 0;
+        border-width: 2px 0 0;
+        border-radius: 22px 22px 0 0;
+        box-shadow: 0 -10px 30px rgba(19, 29, 47, 0.25);
+        transform: translateY(100%);
+        transition: transform 0.25s ease, visibility 0.25s, opacity 0.25s;
+    }
+
+    .janela.aberto {
+        transform: none;
+        transition: transform 0.25s ease, visibility 0s, opacity 0.25s;
+    }
+
+    .janela-rodape {
+        position: sticky;
+        bottom: 0;
+        margin: 16px -22px 0;
+        padding: 12px 22px calc(12px + env(safe-area-inset-bottom));
+        border-top: 2px solid var(--cor-marinho);
+        background: var(--cor-pessego);
+    }
+
+    .janela-rodape .botao {
+        padding-inline: 16px;
+    }
+
+    /* Telas baixas (ex.: iPhone SE): rodapé da sacola mais compacto */
+    .sacola-rodape {
+        padding-top: 10px;
+    }
+}
+
+/* Celular deitado: pouca altura, rodapé da sacola só com o total */
+@media (max-height: 500px) {
+    .sacola-rodape .linha-valor,
+    .sacola-rodape .aviso-taxa {
+        display: none;
+    }
+
+    .sacola-topo {
+        padding-block: 8px;
+    }
+}
+
+@media (max-width: 600px) and (max-height: 700px) {
+    .sacola-rodape .aviso-taxa {
+        font-size: 12px;
+    }
+
+    .sacola-rodape .total {
+        font-size: 16px;
+    }
+
+    .sacola-topo h2 {
+        font-size: 28px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .mascote {
+        animation: none;
+    }
+}
+
+/* ==========================================================
+   Sacola: aviso da taxa e confirmação do pedido
+   ========================================================== */
+
+/* Na primeira tela da sacola o aviso da taxa não aparece */
+.sacola[data-etapa="itens"] .aviso-taxa {
+    display: none;
+}
+
+/* A vaquinha surge para confirmar o pedido */
+.confirmacao {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 18px;
+    padding: 24px;
+    background: var(--cor-pessego);
+    transition: opacity 0.3s ease;
+}
+
+.confirmacao[hidden] {
+    display: none;
+}
+
+.confirmacao.saindo {
+    opacity: 0;
+}
+
+.confirmacao img {
+    width: 180px;
+    height: auto;
+    animation: vaquinha-surge 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.confirmacao p {
+    font-family: var(--fonte-titulo);
+    font-size: 34px;
+    letter-spacing: 0.5px;
+    color: var(--cor-marinho);
+    animation: texto-surge 0.4s 0.4s ease-out both;
+}
+
+@keyframes vaquinha-surge {
+    from {
+        opacity: 0;
+        transform: translateY(70px) scale(0.6);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes texto-surge {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ==========================================================
+   Pagamento online pelo servidor (etapa 1)
+   ========================================================== */
+
+/* Faixa no topo: loja fechada ou pedidos pelo site fora do ar */
+.faixa-loja {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 16px;
+    padding: 12px 16px;
+    background: var(--cor-marinho);
+    color: var(--cor-pessego);
+    text-align: center;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.faixa-loja[hidden] {
+    display: none;
+}
+
+.faixa-loja .botao {
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.status-cep[data-estado="indisponivel"] {
+    color: var(--cor-erro);
+}
+
+.entrega-whatsapp {
+    margin: 4px 0 8px;
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.entrega-whatsapp[hidden] {
+    display: none;
+}
+
+.bloco-pagamento {
+    padding: 12px 14px;
+    border: 2px solid var(--cor-marinho);
+    border-radius: 14px;
+    background: var(--cor-pessego-claro);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bloco-pagamento-titulo {
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.erro-pedido {
+    margin-bottom: 8px;
+    color: var(--cor-erro);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.erro-pedido[hidden] {
+    display: none;
+}
+
+/* Linha de privacidade: só na etapa de finalizar */
+.nota-dados {
+    display: none;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.sacola[data-etapa="finalizar"] .nota-dados {
+    display: block;
+}
+
+.nota-dados a {
+    display: inline-block;
+    padding: 14px 2px;
+    margin: -14px 0;
+    color: inherit;
+    font-weight: 800;
+}
+
+.pronto-mascote {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 8px auto 12px;
+}
+
+#etapa-pronto {
+    text-align: center;
+}
+
+#etapa-pronto .pronto-acoes {
+    justify-content: center;
+}
+
+.pronto-titulo:focus {
+    outline: none;
+}
