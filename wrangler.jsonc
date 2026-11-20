@@ -16,7 +16,7 @@
       "binding": "DB",
       "database_name": "flavorgrill",
       // Troque pelo ID do banco criado no painel da Cloudflare (passo 2 de docs/LIGAR-NA-CLOUDFLARE.md)
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "859a4700-dc8d-4339-8c26-c4647cfe1e90",
       "migrations_dir": "migrations"
     }
   ],
