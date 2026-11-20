@@ -1,0 +1,8 @@
+node_modules/
+.wrangler/
+.dev.vars
+.superpowers/
+test-results/
+playwright-report/
+__pycache__/
+.pytest_cache/
