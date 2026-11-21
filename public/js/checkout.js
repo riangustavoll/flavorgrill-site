@@ -390,6 +390,8 @@ async function acompanharPagamento(parametros) {
     abrirCamada(sacola);
     mostrarEtapaPronto();
     whatsapp.href = criarLinkWhatsApp("Olá! Sobre o meu pedido " + codigo + ". 🍔");
+    // Número do pedido em destaque, para o cliente informar se precisar falar com a loja
+    document.querySelector("#pronto-codigo strong").textContent = codigo;
 
     const busca = new URLSearchParams();
     if (parametros.get("transaction_nsu") && parametros.get("slug")) {
@@ -400,7 +402,7 @@ async function acompanharPagamento(parametros) {
         try {
             const { ok, dados } = await chamarApi("/api/pedidos/" + encodeURIComponent(codigo) + (busca.toString() ? "?" + busca : ""));
             if (ok && dados.status !== "aguardando_pagamento" && dados.status !== "expirado") {
-                titulo.textContent = "Pedido " + codigo + " pago!";
+                titulo.textContent = "Pedido pago!";
                 texto.textContent = "Recebemos seu pagamento e seu pedido já foi para a cozinha. Qualquer dúvida, fale com a gente.";
                 whatsapp.hidden = false;
                 esvaziarCarrinho();
@@ -412,7 +414,7 @@ async function acompanharPagamento(parametros) {
         }
         await new Promise(resolver => setTimeout(resolver, 3000));
     }
-    titulo.textContent = "Pedido " + codigo;
+    titulo.textContent = "Pedido recebido";
     texto.textContent = "Ainda não recebemos a confirmação. Se você já pagou, ela chega em instantes. Se precisar, fale com a gente.";
     whatsapp.hidden = false;
 }

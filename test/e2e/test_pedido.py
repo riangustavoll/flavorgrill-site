@@ -95,7 +95,14 @@ def test_pedido_completo_pago(ambiente):
     assert Estado.links[codigo]["customer"]["email"] == "ana.souza@email.com"
     pagina.get_by_role("button", name="Pagar").click()
     pagina.wait_for_url(re.compile(r"localhost:8787/"))
-    expect(pagina.get_by_text(f"Pedido {codigo} pago!")).to_be_visible(timeout=10000)
+    expect(pagina.locator("#pronto-titulo")).to_have_text("Pedido pago!", timeout=10000)
+    # Número do pedido em destaque: caixa azul-marinho com o código grande
+    destaque = pagina.locator("#pronto-codigo")
+    expect(destaque).to_be_visible()
+    expect(destaque).to_contain_text("Número do pedido")
+    expect(destaque.locator("strong")).to_have_text(codigo)
+    assert destaque.evaluate("e => getComputedStyle(e).backgroundColor") == "rgb(19, 29, 47)"
+    assert destaque.locator("strong").evaluate("e => parseFloat(getComputedStyle(e).fontSize)") >= 40
     assert sql(f"SELECT status FROM pedidos WHERE codigo = '{codigo}'")[0]["status"] == "pago"
     assert pagina.evaluate("JSON.parse(localStorage.getItem('flavorgrill.carrinho') || '[]').length") == 0
     checar_contraste_e_toque(pagina, "#sacola")
