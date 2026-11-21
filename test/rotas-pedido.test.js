@@ -11,7 +11,7 @@ function corpoPedido(extra = {}) {
     sequencia += 1;
     return {
         itens: [{ id: "combo-casal", quantidade: 1, burguers: ["classico", "bacon"] }],
-        cliente: { nome: "Ana Souza", whatsapp: "(83) 9" + String(10000000 + sequencia).slice(-8) },
+        cliente: { nome: "Ana Souza", whatsapp: "(83) 9" + String(10000000 + sequencia).slice(-8), email: " Ana.Souza@Email.com " },
         endereco: { cep: "58055-000", rua: "Rua das Flores", numero: "10", bairro: "Mangabeira", referencia: "" },
         ...extra
     };
@@ -85,6 +85,29 @@ describe("POST /api/pedidos", () => {
         expect((await resposta.json()).erro).toBe("entrega_indisponivel");
         const { total } = await env.DB.prepare("SELECT COUNT(*) AS total FROM pedidos WHERE cliente_whatsapp = ?").bind(corpo.cliente.whatsapp.replace(/\D/g, "")).first();
         expect(total).toBe(0);
+    });
+
+    it("manda o e-mail do cliente para a InfinitePay já preenchido, sem guardar no banco", async () => {
+        const { chamadas } = linkFalso();
+        const corpo = corpoPedido();
+        const resposta = await enviar(corpo);
+        expect(resposta.status).toBe(201);
+        expect(chamadas[0].corpo.customer.email).toBe("ana.souza@email.com");
+        const { codigo } = await resposta.json();
+        const linha = await env.DB.prepare("SELECT * FROM pedidos WHERE codigo = ?").bind(codigo).first();
+        expect(JSON.stringify(linha)).not.toContain("email.com");
+    });
+
+    it("recusa e-mail inválido ou vazio", async () => {
+        for (const email of ["", "ana@", "ana souza@email.com", "a".repeat(250) + "@x.com"]) {
+            const corpo = corpoPedido();
+            corpo.cliente.email = email;
+            const resposta = await enviar(corpo);
+            expect(resposta.status).toBe(400);
+            const dados = await resposta.json();
+            expect(dados.erro).toBe("dados_invalidos");
+            expect(dados.mensagem).toBe("Confira seu nome, WhatsApp, e-mail e endereço.");
+        }
     });
 
     it("valida os dados do cliente", async () => {

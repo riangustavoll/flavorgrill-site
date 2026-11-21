@@ -22,11 +22,20 @@ function texto(valor, maximo) {
     return typeof valor === "string" ? valor.trim().slice(0, maximo) : "";
 }
 
+// E-mail simples: algo@dominio.ext, sem espaços, até 254 caracteres
+const FORMATO_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function lerEmail(valor) {
+    const email = typeof valor === "string" ? valor.trim().toLowerCase() : "";
+    return email.length <= 254 && FORMATO_EMAIL.test(email) ? email : "";
+}
+
 function lerCliente(corpo) {
     const cliente = corpo.cliente || {};
     const endereco = corpo.endereco || {};
     const dados = {
-        cliente: { nome: texto(cliente.nome, 60), whatsapp: somenteNumeros(cliente.whatsapp) },
+        // O e-mail só vai para a InfinitePay (recibo do pagamento); não fica guardado no banco
+        cliente: { nome: texto(cliente.nome, 60), whatsapp: somenteNumeros(cliente.whatsapp), email: lerEmail(cliente.email) },
         endereco: {
             cep: somenteNumeros(endereco.cep),
             rua: texto(endereco.rua, 120),
@@ -38,6 +47,7 @@ function lerCliente(corpo) {
     };
     const valido = dados.cliente.nome.length >= 2
         && [10, 11].includes(dados.cliente.whatsapp.length)
+        && dados.cliente.email
         && dados.endereco.cep.length === 8
         && dados.endereco.rua && dados.endereco.numero && dados.endereco.bairro;
     return valido ? dados : null;
@@ -66,7 +76,7 @@ export async function rotaCriarPedido(request, env, ctx) {
     const corpo = await request.json().catch(() => ({}));
     const dados = lerCliente(corpo);
     if (!dados) {
-        return json({ erro: "dados_invalidos", mensagem: "Confira seu nome, WhatsApp e endereço." }, 400);
+        return json({ erro: "dados_invalidos", mensagem: "Confira seu nome, WhatsApp, e-mail e endereço." }, 400);
     }
 
     let calculo;

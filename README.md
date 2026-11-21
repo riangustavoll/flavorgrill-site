@@ -7,7 +7,7 @@ Site de pedidos da hamburgueria **The Flavor Grill**, delivery em João Pessoa (
 ## Como o cliente faz o pedido
 
 1. **Escolhe** os burguers, combos, adicionais e porções no cardápio.
-2. **Preenche** nome, WhatsApp e CEP. O site completa rua e bairro e o servidor calcula a taxa de entrega pela distância.
+2. **Preenche** nome, WhatsApp, e-mail e CEP. O site completa rua e bairro e o servidor calcula a taxa de entrega pela distância.
 3. **Paga online** na página segura da InfinitePay (Pix ou cartão de crédito à vista).
 4. **Volta para o site**, que confirma o pagamento. O pedido já está no painel da loja.
 
@@ -97,7 +97,7 @@ Cuidados com o Nominatim: só o servidor consulta, no máximo 1 vez por segundo,
 
 Resumo da página [`privacidade.html`](public/privacidade.html):
 
-- O site pede só o necessário: nome, WhatsApp e endereço de entrega.
+- O site pede só o necessário: nome, WhatsApp, e-mail e endereço de entrega. O e-mail vai direto para a InfinitePay (comprovante do pagamento) e não fica guardado no banco.
 - Pedidos pagos ficam guardados por 12 meses; os não pagos, por 7 dias. A limpeza é automática.
 - Só a equipe da loja vê os pedidos, no painel. Os dados do cartão ficam só com a InfinitePay.
 - O site não usa cookies de propaganda, ferramentas de análise ou rastreamento.

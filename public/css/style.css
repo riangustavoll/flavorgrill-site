@@ -2097,3 +2097,10 @@ textarea {
 .pronto-titulo:focus {
     outline: none;
 }
+
+/* Texto de ajuda embaixo de um campo do formulário */
+.dica-campo {
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}

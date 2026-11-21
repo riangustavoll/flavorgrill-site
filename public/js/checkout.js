@@ -17,7 +17,7 @@ const erroPedido = document.getElementById("erro-pedido");
 const linkEntregaWhatsapp = document.getElementById("entrega-whatsapp");
 
 // Campos que são lembrados para o próximo pedido
-const CAMPOS_LEMBRADOS = ["nome", "whatsapp", "cep", "rua", "numero", "bairro", "referencia"];
+const CAMPOS_LEMBRADOS = ["nome", "whatsapp", "email", "cep", "rua", "numero", "bairro", "referencia"];
 
 function lerCampo(nome) {
     return formularioPedido.elements[nome].value.trim();
@@ -332,7 +332,7 @@ function montarPedido() {
             burguers: linha.burguers,
             observacao: linha.observacao
         })),
-        cliente: { nome: lerCampo("nome"), whatsapp: lerCampo("whatsapp") },
+        cliente: { nome: lerCampo("nome"), whatsapp: lerCampo("whatsapp"), email: lerCampo("email") },
         endereco: { cep: lerCampo("cep"), rua: lerCampo("rua"), numero: lerCampo("numero"), bairro: lerCampo("bairro"), referencia: lerCampo("referencia") },
         cupom: cupomAplicado ? cupomAplicado.codigo : "",
         observacoes: lerCampo("observacoes")

@@ -31,7 +31,7 @@ export async function criarLink(env, pedido) {
         order_nsu: pedido.codigo,
         redirect_url: env.SITE_URL + "/?pedido=" + pedido.codigo,
         webhook_url: env.SITE_URL + "/api/infinitepay/webhook",
-        customer: { name: pedido.cliente.nome, phone_number: "+55" + pedido.cliente.whatsapp },
+        customer: { name: pedido.cliente.nome, email: pedido.cliente.email, phone_number: "+55" + pedido.cliente.whatsapp },
         address: {
             cep: pedido.endereco.cep,
             street: pedido.endereco.rua,

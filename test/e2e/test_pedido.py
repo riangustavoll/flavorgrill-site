@@ -52,6 +52,7 @@ def abrir_finalizar(pagina):
 def preencher(pagina, cep="58055-000"):
     pagina.fill("#cliente-nome", "Ana Souza")
     pagina.fill("#cliente-whatsapp", "(83) 98877-6655")
+    pagina.fill("#cliente-email", "ana.souza@email.com")
     pagina.fill("#cliente-cep", cep)
     pagina.fill("#cliente-numero", "10")
 
@@ -91,6 +92,7 @@ def test_pedido_completo_pago(ambiente):
     pagina.wait_for_url(re.compile(r"localhost:8799/pagar/FG"), timeout=10000)
     codigo = pagina.url.rsplit("/", 1)[1]
     assert Estado.links[codigo]["items"][0]["price"] == 8990
+    assert Estado.links[codigo]["customer"]["email"] == "ana.souza@email.com"
     pagina.get_by_role("button", name="Pagar").click()
     pagina.wait_for_url(re.compile(r"localhost:8787/"))
     expect(pagina.get_by_text(f"Pedido {codigo} pago!")).to_be_visible(timeout=10000)
@@ -99,6 +101,19 @@ def test_pedido_completo_pago(ambiente):
     checar_contraste_e_toque(pagina, "#sacola")
     assert pagina.pedidos_mapa == []
     assert pagina.erros_js == []
+    pagina.context.close()
+
+
+def test_email_aparece_como_teclado_de_email_e_e_obrigatorio(ambiente):
+    loja(True)
+    pagina = nova_pagina(ambiente)
+    pagina.goto(URL + "/")
+    adicionar(pagina, "combo-casal")
+    abrir_finalizar(pagina)
+    campo = pagina.get_by_label("E-mail")
+    expect(campo).to_have_attribute("type", "email")
+    expect(campo).to_have_attribute("autocomplete", "email")
+    expect(campo).to_have_attribute("required", "")
     pagina.context.close()
 
 

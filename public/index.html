@@ -264,6 +264,12 @@
                             placeholder="(83) 99999-9999" pattern="\(\d{2}\) \d{4,5}-\d{4}" maxlength="15"
                             title="Informe o número com DDD, ex.: (83) 99999-9999" required>
                     </div>
+                    <div class="campo">
+                        <label for="cliente-email">E-mail *</label>
+                        <input type="email" id="cliente-email" name="email" autocomplete="email" inputmode="email"
+                            placeholder="seunome@email.com" maxlength="254" aria-describedby="dica-email" required>
+                        <p class="dica-campo" id="dica-email">Para você receber o comprovante do pagamento.</p>
+                    </div>
                 </fieldset>
 
                 <fieldset id="grupo-endereco">
